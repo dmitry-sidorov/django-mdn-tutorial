@@ -23,6 +23,7 @@ class Book(models.Model):
     # ManyToManyField used because genre can contain many books. Books can cover many genres.
     # Genre class has already been defined so we can specify the object above.
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
+    language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.title
@@ -71,3 +72,9 @@ class Author(models.Model):
 
     def __str__(self):
         return f'{self.last_name, self.first_name}'
+
+class Language(models.Model):
+    name = models.CharField(max_length=200, help_text="Enter book's natural language")
+
+    def __str__(self):
+        return self.name
